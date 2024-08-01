@@ -4,28 +4,28 @@ const LocationInfo = () => {
   const aboutLocation = [
     {
       title: "IP ADDRESS",
-      description: "IP",
+      description: "31.43.234.28",
     },
     {
       title: "LOCATION",
-      description: "Location",
+      description: "Ukraine, Uzhhorods'ka city council 88000",
     },
     {
       title: "TIMEZONE",
-      description: "Zone",
+      description: "UTC 2",
     },
     {
       title: "ISP",
-      description: "ISP",
+      description: "LLC Electron sevlush",
     },
   ];
 
   return (
     <div className={styles.container}>
-      {aboutLocation.map((info, i) => (
-        <div className={styles.infoGroup}>
-          <h6 key={i}>{info.title}</h6>
-          <p>{info.description}</p>
+      {aboutLocation.map((info) => (
+        <div className={styles.infoGroup} key={info.title}>
+          <span>{info.title}</span>
+          <strong>{info.description}</strong>
         </div>
       ))}
     </div>

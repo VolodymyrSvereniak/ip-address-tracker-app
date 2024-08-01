@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
   background-image: url("../../assets/pattern-bg-desktop.png");
   background-size: cover;
   height: 35vh;
@@ -14,7 +13,7 @@
   .inputWrapper {
     display: flex;
     position: relative;
-    width: 30rem;
+    width: 35rem;
 
     .input {
       width: 100%;
@@ -22,6 +21,7 @@
       padding: 1rem;
       border: none;
       border-radius: 0.625rem;
+      font-size: small;
       outline: none;
     }
 
@@ -34,6 +34,19 @@
       border: none;
       border-radius: 0 0.625rem 0.625rem 0;
       outline: none;
+    }
+  }
+
+  @media (max-width: 786px) {
+    height: 30vh;
+
+    .title {
+      font-size: 1.125rem;
+      padding-bottom: 0;
+    }
+
+    .inputWrapper {
+        width: 78%;
     }
   }
 }

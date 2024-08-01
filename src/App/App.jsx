@@ -6,11 +6,11 @@ import Main from '../components/MainContent/MainContent';
 
 function App() {
   return (
-    <div>
+    <>
      <Header/>
      <LocationInfo/>
      <Main/>
-    </div>
+    </>
   );
 }
 
