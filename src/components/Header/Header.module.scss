@@ -13,7 +13,7 @@
   .inputWrapper {
     display: flex;
     position: relative;
-    width: 35rem;
+    width: 29rem;
 
     .input {
       width: 100%;
@@ -28,12 +28,18 @@
     .button {
       position: absolute;
       right: 0;
-      background-color: black;
+      background-color: hsl(0, 0%, 17%);
       width: 3.5rem;
       height: 100%;
       border: none;
       border-radius: 0 0.625rem 0.625rem 0;
       outline: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: hsl(0, 0%, 59%);
+      }
     }
   }
 
@@ -41,12 +47,16 @@
     height: 30vh;
 
     .title {
-      font-size: 1.125rem;
+      font-size: 0.875rem;
       padding-bottom: 0;
     }
 
     .inputWrapper {
-        width: 78%;
+      width: 78%;
+
+      .button {
+        width: 3rem;
+      }
     }
   }
 }

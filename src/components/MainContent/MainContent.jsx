@@ -9,6 +9,8 @@ const Main = () => {
 
     useEffect(() => {
       map.zoomControl.remove();
+      map.attributionControl.remove();
+      map.scrollWheelZoom.disable();
     }, [map]);
   };
 
