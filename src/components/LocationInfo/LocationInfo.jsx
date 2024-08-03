@@ -1,28 +1,37 @@
 import styles from "./LocationInfo.module.scss";
+import { useInputStore } from "../Header/useInputStore";
 
 const LocationInfo = () => {
-  const aboutLocation = [
+  const currentLocationData = useInputStore(
+    (state) => state.currentLocationData
+  );
+  const { location = [] } = currentLocationData;
+  const locationDestructure = Object.values(location).slice(0, 2).join(' ,');
+
+  const locationData = [
     {
       title: "IP ADDRESS",
-      description: "31.43.234.28",
+      description: currentLocationData.ip,
     },
     {
       title: "LOCATION",
-      description: "Ukraine, Uzhhorods'ka city council 88000",
+      description: locationDestructure,
     },
     {
       title: "TIMEZONE",
-      description: "UTC 2",
+      description: currentLocationData?.location?.timezone,
     },
     {
       title: "ISP",
-      description: "LLC Electron sevlush",
+      description: currentLocationData.isp,
     },
   ];
 
+  console.log(currentLocationData);
+
   return (
     <div className={styles.container}>
-      {aboutLocation.map((info) => (
+      {locationData?.map((info) => (
         <div className={styles.infoGroup} key={info.title}>
           <span>{info.title}</span>
           <strong>{info.description}</strong>
