@@ -1,6 +1,7 @@
 import styles from "./Header.module.scss";
 import arrow from "../../assets/icon-arrow.svg";
 import { useInputStore } from "./useInputStore";
+import { useEffect } from "react";
 
 const Header = () => {
   const {
@@ -8,22 +9,26 @@ const Header = () => {
     setInputValue,
     isMatchDomain,
     isMatchIPv4,
+    handleSubmitReset,
     inputValueValidation,
-    currentLocationData,
-    getCurrentLocationData
+    getNewLocationData,
   } = useInputStore();
 
-  if (isMatchDomain) {
-    console.log(`${isMatchDomain} domain`);
-  } else if (isMatchIPv4) {
-    console.log(`${isMatchIPv4} ip`);
-  }
+  useEffect(() => {
+    console.log("Component rendered with value:", isMatchIPv4, isMatchDomain);
+  }, [isMatchIPv4, isMatchDomain]);
 
   function handleValidation(e) {
     e.preventDefault();
-    // inputValueValidation();
-    getCurrentLocationData()
+    inputValueValidation();
   }
+
+  useEffect(() => {
+    if (isMatchIPv4 || isMatchDomain) {
+      getNewLocationData(isMatchIPv4, inputValue);
+      handleSubmitReset();
+    }
+  }, [isMatchIPv4, isMatchDomain]);
 
   return (
     <div className={styles.container}>

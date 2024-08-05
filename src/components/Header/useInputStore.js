@@ -2,12 +2,21 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import axios from "axios";
 
+const API_KEY = "at_fOxxICc22qsroXqzVh3cxxgLM0V7j";
+
 export const useInputStore = create(
   immer((set) => ({
     inputValue: "",
-    currentLocationData: {},
+    setCurrentLocationData: [],
     isMatchDomain: false,
     isMatchIPv4: false,
+    status: "pending",
+    handleSubmitReset: () =>
+      //без ресету дані не відправляються повторно за відповідною умовою
+      set((state) => {
+        state.isMatchIPv4 = false;
+        state.isMatchDomain = false;
+      }),
     setInputValue: (value) =>
       set((state) => {
         state.inputValue = value;
@@ -18,22 +27,36 @@ export const useInputStore = create(
           /^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}$/;
         const domain =
           /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?(\/.*)?$/;
+        const validIP = IPv4.test(state.inputValue);
+        const validDomain = domain.test(state.inputValue);
 
-        if (domain.test(state.inputValue)) {
-          state.isMatchDomain = true;
-          state.isMatchIPv4 = false;
-        } else if (IPv4.test(state.inputValue)) {
-          state.isMatchIPv4 = true;
-          state.isMatchDomain = false;
-        }
+        state.isMatchIPv4 = validIP;
+        state.isMatchDomain = validDomain;
       }),
-    getCurrentLocationData: async () => {
+    getDefaultLocation: async () => {
       try {
         const response = await axios.get(
-          "https://geo.ipify.org/api/v2/country?apiKey=at_X9sD5jqtLPFKNFFSOKoKXNigTOOyQ&ipAddress=31.43.234.28"
+          `https://geo.ipify.org/api/v2/country,city?apiKey=${API_KEY}`
         );
         set((state) => {
-          state.currentLocationData = response.data;
+          state.setCurrentLocationData = response.data;
+          state.status = "successful";
+        });
+      } catch (e) {
+        console.log(e.message);
+        throw Error("Something went wrong");
+      }
+    },
+    getNewLocationData: async (isMatchIPv4, inputValue) => {
+      try {
+        const response = await axios.get(
+          `https://geo.ipify.org/api/v2/country,city?apiKey=${API_KEY}&${
+            isMatchIPv4 ? "ipAddress" : "domain"
+          }=${inputValue}`
+        );
+        set((state) => {
+          state.setCurrentLocationData = response.data;
+          state.status = "successful";
         });
       } catch (e) {
         console.log(e.message);

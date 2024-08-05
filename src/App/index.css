@@ -5,7 +5,7 @@ body {
   height: 100vh;
   font-family: "Rubik", sans-serif;
   font-size: 18px;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 @media (max-width: 786px) {
