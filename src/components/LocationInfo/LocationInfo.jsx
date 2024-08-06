@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import styles from "./LocationInfo.module.scss";
 import { useInputStore } from "../Header/useInputStore";
 import { processCurrentLocationData } from "./processCurrentLocationData";
+import { LoadingDots } from "../Loader/Loader";
 
 const LocationInfo = () => {
   const status = useInputStore((state) => state.status);
@@ -14,7 +15,11 @@ const LocationInfo = () => {
   }, []);
 
   if (status === "pending") {
-    return <div className={styles.container}>Loading</div>;
+    return (
+      <div className={styles.container}>
+        <LoadingDots />
+      </div>
+    );
   }
 
   return (
