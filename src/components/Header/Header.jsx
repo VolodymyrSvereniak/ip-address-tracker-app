@@ -25,7 +25,7 @@ const Header = () => {
 
   useEffect(() => {
     if (isMatchIPv4 || isMatchDomain) {
-      getNewLocationData(isMatchIPv4, inputValue);
+      getNewLocationData(isMatchDomain, inputValue);
       handleSubmitReset();
     }
   }, [isMatchIPv4, isMatchDomain]);
@@ -37,7 +37,7 @@ const Header = () => {
         <input
           className={styles.input}
           type="text"
-          placeholder="Search for any IP address domain"
+          placeholder="Search for any IP address or domain"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />

@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import axios from "axios";
 
-const API_KEY = "at_fOxxICc22qsroXqzVh3cxxgLM0V7j";
+const API_KEY = "at_zFkvnBnTN130YCnU3tkPelfkWjAEy";
 
 export const useInputStore = create(
   immer((set) => ({
@@ -47,12 +47,19 @@ export const useInputStore = create(
         throw Error("Something went wrong");
       }
     },
-    getNewLocationData: async (isMatchIPv4, inputValue) => {
+    getNewLocationData: async (isMatchDomain, inputValue) => {
+      const protocol = /^https?:\/\/(www\.)?|\/$/g;
+      const isProtocolPresent = protocol.test(inputValue);
+      const domainRefactor = inputValue.replace(
+        /^https?:\/\/(www\.)?|\/$/g,
+        ""
+      );
+
       try {
         const response = await axios.get(
           `https://geo.ipify.org/api/v2/country,city?apiKey=${API_KEY}&${
-            isMatchIPv4 ? "ipAddress" : "domain"
-          }=${inputValue}`
+            isMatchDomain ? "domain" : "ipAddress"
+          }=${isProtocolPresent ? domainRefactor : inputValue}`
         );
         set((state) => {
           state.setCurrentLocationData = response.data;
