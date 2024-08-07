@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import axios from "axios";
 
-const API_KEY = "at_zFkvnBnTN130YCnU3tkPelfkWjAEy";
+const API_KEY = "at_I7YlpdbZvtG3tfongi0Sm0NwiUYph";
 
 export const useInputStore = create(
   immer((set) => ({
