@@ -8,8 +8,9 @@ import { LoadingDots } from "../Loader/Loader";
 const Map = () => {
   const coordinates = useInputStore((state) => state.setCurrentLocationData);
   const status = useInputStore((state) => state.status);
-  const latitude = coordinates.location?.lat;
-  const longitude = coordinates.location?.lng;
+  
+  const latitude = coordinates?.location?.lat;
+  const longitude = coordinates?.location?.lng;
 
   const mapRef = useRef();
 

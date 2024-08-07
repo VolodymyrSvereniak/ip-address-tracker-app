@@ -11,6 +11,12 @@ export const useInputStore = create(
     isMatchDomain: false,
     isMatchIPv4: false,
     status: "pending",
+    modalPopupStatus: false,
+    handleModalPopupStatus: () => {
+      set((state) => {
+        state.modalPopupStatus = !state.modalPopupStatus;
+      });
+    },
     handleSubmitReset: () =>
       //без ресету дані не відправляються повторно за відповідною умовою
       set((state) => {
@@ -29,6 +35,10 @@ export const useInputStore = create(
           /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?(\/.*)?$/;
         const validIP = IPv4.test(state.inputValue);
         const validDomain = domain.test(state.inputValue);
+
+        if (!validIP && !validDomain) {
+          state.modalPopupStatus = !state.modalPopupStatus;
+        }
 
         state.isMatchIPv4 = validIP;
         state.isMatchDomain = validDomain;

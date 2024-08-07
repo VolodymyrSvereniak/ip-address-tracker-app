@@ -44,7 +44,9 @@
   }
 
   @media (max-width: 786px) {
+    background-image: url("../../assets/pattern-bg-mobile.png");
     height: 30vh;
+    padding-top: 15px;
 
     .title {
       font-size: 0.875rem;
