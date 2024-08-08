@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import styles from "./Map.module.scss";
+import markerIcon from "../../assets/icon-location.svg";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useInputStore } from "../Header/useInputStore";
 import { LoadingDots } from "../Loader/Loader";
@@ -8,9 +10,16 @@ import { LoadingDots } from "../Loader/Loader";
 const Map = () => {
   const coordinates = useInputStore((state) => state.setCurrentLocationData);
   const status = useInputStore((state) => state.status);
-  
+
   const latitude = coordinates?.location?.lat;
   const longitude = coordinates?.location?.lng;
+
+  const customIcon = new Icon({
+    iconUrl: markerIcon,
+    iconSize: [40, 50],
+    iconAnchor: [16, 32],
+    popupAnchor: [5, -40],
+  });
 
   const mapRef = useRef();
 
@@ -45,7 +54,7 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <Marker position={[latitude, longitude]}>
+        <Marker position={[latitude, longitude]} icon={customIcon}>
           <Popup>You're current location</Popup>
         </Marker>
       </MapContainer>
